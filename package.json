@@ -1,0 +1,14 @@
+{
+  "name": "how-webpack-modules-work",
+  "version": "1.0.0",
+  "description": "介绍了 webpack 内部模块的机制",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "yww7289@163.com",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "2.3.0"
+  }
+}
