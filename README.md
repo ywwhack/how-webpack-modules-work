@@ -102,12 +102,12 @@ console.log(c.name)
 拿 `c.js` 做个例子，它最后会被包装成如下形式：
 
 ```
-function(module, __webpack_exports__, __webpack_require__) {
-	var __WEBPACK_IMPORTED_MODULE_0__b__ = __webpack_require__(0)
-	
-	__webpack_exports__["a"] = ({
-	  name: 'c'
-	})
+function (module, __webpack_exports__, __webpack_require__) {
+  var __WEBPACK_IMPORTED_MODULE_0__b__ = __webpack_require__(0)
+
+  __webpack_exports__["a"] = ({
+    name: 'c'
+  })
 }
 ```
 
@@ -134,12 +134,12 @@ function(module, __webpack_exports__, __webpack_require__) {
 // 那么对应的 modules 和 installedModules 如下
 
 modules[1] = function (module, __webpack_exports__, __webpack_require__) {
-    var __WEBPACK_IMPORTED_MODULE_0__b__ = __webpack_require__(0)
+  var __WEBPACK_IMPORTED_MODULE_0__b__ = __webpack_require__(0)
 
-    __webpack_exports__["a"] = ({
-      name: 'c'
-    })
-  }
+  __webpack_exports__["a"] = ({
+    name: 'c'
+  })
+}
 
 installedModules[1] = {
   moduleId: 1,
