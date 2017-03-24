@@ -2,6 +2,8 @@
 
 我们知道 `Webpack` 是一个模块打包工具，但是它打包后的 bundle 文件到底长什么样呢？本文将通过一个最简单的示例，分析 `Webpack` 打包后为我们生成的代码，来阐述项目代码运行时的模块机制。
 
+**示例所用 Webpack 版本为 2.3.0**
+
 ### 准备点材料
 
 webpack.config.js
@@ -133,6 +135,7 @@ function (module, __webpack_exports__, __webpack_require__) {
 // 假设 c.js 打包后的模块 id 为 1
 // 那么对应的 modules 和 installedModules 如下
 
+// 存的是一个函数
 modules[1] = function (module, __webpack_exports__, __webpack_require__) {
   var __WEBPACK_IMPORTED_MODULE_0__b__ = __webpack_require__(0)
 
@@ -141,6 +144,7 @@ modules[1] = function (module, __webpack_exports__, __webpack_require__) {
   })
 }
 
+// 存的是一个对象
 installedModules[1] = {
   moduleId: 1,
   l: true,
@@ -189,7 +193,7 @@ function __webpack_require__(moduleId) {
 
 1. 根据 `moduleId` 查看 `installedModules` 中是否存在相应的 `module` ，如果存在就返回对应的 `module.exports`
 2. 如果 `module` 不存在，就创建一个新的 `module` 对象，并且使 `installedModules[moduleId]` 指向新建的 `module` 对象
-3. 根据 `moduleId` 从 `modules` 对象中找到对应的模块初始化函数，并执行，依次传入 `module`，`module.exports`，`__webpack_require__`。可以看到，`__webpack_require__` 被当作参数传入，使得所有模块内部都可以通过调用该函数来引入其他模块
+3. 根据 `moduleId` 从 `modules` 对象中找到对应的模块初始化函数并执行，依次传入 `module`，`module.exports`，`__webpack_require__`。可以看到，`__webpack_require__` 被当作参数传入，使得所有模块内部都可以通过调用该函数来引入其他模块
 4. 最后一步，返回 `module.exports`
 
 ### 最后，我们来改造一下 bundle.js
@@ -258,7 +262,7 @@ function __webpack_require__(moduleId) {
 通过上面的分析，可以看到，一个简单的模块机制由这几个部分构成：
 
 * 一个对象用于保存所有的模块初始化函数 -- `modules`
-* 一个对象用于保存加载过的模块 -- `installedModules`
+* 一个数组用于保存加载过的模块 -- `installedModules`
 * 一个模块加载函数 -- `require`
 
 了解这些「黑盒」，有助于我们更好的理解模块化。在此之上，还可以进一步去研究加了 `Code Splitting` 之后的代码的样子，以及思考如何生成这样一个 bundle 文件。这些内容也非常丰富，值得大家去探索。
